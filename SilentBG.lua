@@ -5,11 +5,8 @@ local bg_pattern = ".- %[%d+-%d+%] started!"
 local SilentBG = CreateFrame("Frame","SilentBG")
 
 SilentBG:RegisterEvent("CHAT_MSG_SYSTEM")
-SilentBG:RegisterEvent("CHAT_MSG_SAY")
 SilentBG:SetScript("OnEvent", function ()
   if event == "CHAT_MSG_SYSTEM" and string.find(arg1,bg_pattern) then
-
-    -- print("BG POPPED, normal message supressed: "..arg1)
 
     for i=1,NUM_CHAT_WINDOWS do
       getglobal("ChatFrame"..i).OrigAddMessage = getglobal("ChatFrame"..i).AddMessage
