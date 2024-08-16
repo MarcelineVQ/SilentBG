@@ -4,9 +4,11 @@
 local bg_pattern = ".- %[%d+-%d+%] started!"
 local SilentBG = CreateFrame("Frame","SilentBG")
 
+local lock = false
 SilentBG:RegisterEvent("CHAT_MSG_SYSTEM")
 SilentBG:SetScript("OnEvent", function ()
-  if event == "CHAT_MSG_SYSTEM" and string.find(arg1,bg_pattern) then
+  if event == "CHAT_MSG_SYSTEM" and string.find(arg1,bg_pattern) and not lock then
+    lock = true
 
     for i=1,NUM_CHAT_WINDOWS do
       getglobal("ChatFrame"..i).OrigAddMessage = getglobal("ChatFrame"..i).AddMessage
@@ -24,6 +26,7 @@ SilentBG:SetScript("OnEvent", function ()
           getglobal("ChatFrame"..i).AddMessage = getglobal("ChatFrame"..i).OrigAddMessage
         end
         SilentBG:SetScript("OnUpdate", nil)
+        lock = false
       end
     end)
   end
