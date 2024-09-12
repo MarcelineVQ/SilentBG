@@ -1,9 +1,9 @@
 ## Interface: 11200
-## Title: SilentBG
-## Notes: Silence BG announcements
+## Title: SilentServer
+## Notes: Silence server spam
 ## X-Category: Interface Enhancements
 ## X-Date: 2024-05-24
 ## X-Website:
 ## Version: 1.0
 
-SilentBG.lua
+SilentServer.lua
