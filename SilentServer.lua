@@ -27,8 +27,9 @@ local lock = false
 local raid_roster = {}
 local raid_roster_count = 0
 
-function SilentServer:Shush(msg,type,from)
+function SilentServer:Shush(msg,type_arg,from)
   if lock then return end
+  local type = type_arg -- capturing arg
   local pat = nil
   if type == "system" then
     for _,pattern in patterns do
@@ -49,7 +50,7 @@ function SilentServer:Shush(msg,type,from)
   for i=1,NUM_CHAT_WINDOWS do
     getglobal("ChatFrame"..i).OrigAddMessage = getglobal("ChatFrame"..i).AddMessage
     getglobal("ChatFrame"..i).AddMessage = function (frame,msg,a1,a2,a3,a4,a5)
-      if string.find(msg,pat) then return end
+      if string.find(msg,pat) and (type ~= "yell" or (type == "yell" and UnitAffectingCombat("player"))) then return end
       getglobal("ChatFrame"..i).OrigAddMessage(frame,msg,a1,a2,a3,a4,a5)
     end
   end
