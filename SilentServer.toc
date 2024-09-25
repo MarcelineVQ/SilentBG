@@ -4,6 +4,7 @@
 ## X-Category: Interface Enhancements
 ## X-Date: 2024-05-24
 ## X-Website:
-## Version: 1.0
+## Version: 1.1
+## SavedVariables: SilentServerDB
 
 SilentServer.lua
