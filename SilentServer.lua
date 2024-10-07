@@ -59,7 +59,7 @@ ChatFrame_OnEvent = function (event,a2,a3,a4,a5,a6,a7,a8,a9,a10)
     end
     orig_ChatFrame_OnEvent(event,a2,a3,a4,a5,a6,a7,a8,a9,a10)
   elseif event == "CHAT_MSG_YELL" and SilentServerDB.hellfire then
-    if from and and UnitName("player") ~= from and
+    if from and UnitName("player") ~= from and
         raid_roster[from] and raid_roster[from].class == "Warlock" then
       return false
     end
