@@ -3,17 +3,18 @@
 
 -- not starting with ^ because these could be color coded
 local patterns = {
-  '^Delete your WDB folder regularly',
-  '^If you want to help our project',
-  '^Keep up to date with',
-  '^We encourage everyone to',
-  '^All gold transactions are',
-  '^Tune in to Everlook Broadcasting',
-  '^Follow us on X',
-  '^If you enjoy Mysteries of Azeroth',
-  '^/join world to connect',
+  '^Delete your WDB',
+  '^If you want',
+  '^Keep up to',
+  '^We encourage everyone',
+  '^All gold transactions',
+  '^Tune in to',
+  '^Follow us on',
+  '^If you enjoy',
+  '^/join world to',
   '^Welcome to Turtle',
   '^Six years of',
+  '^Download the anniversary',
   ".- %[%d+-%d+%] started!", -- battleground
 }
 
@@ -21,6 +22,7 @@ local SilentServer = CreateFrame("Frame","SilentServer")
 SilentServer:SetScript("OnEvent", function ()
   SilentServer[event](this,arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10)
 end)
+SilentServer:RegisterEvent("ADDON_LOADED")
 SilentServer:RegisterEvent("RAID_ROSTER_UPDATE")
 
 local raid_roster = {}
@@ -38,11 +40,17 @@ function SilentServer:RosterUpdate()
   end
 end
 
-function  SilentServer:RAID_ROSTER_UPDATE()
+function SilentServer:ADDON_LOADED(addon)
+  if addon ~= "SilentServer" then return end
+  SilentServerDB = SilentServerDB or {}
+  if SilentServerDB.hellfire == nil then SilentServerDB.hellfire = true end
+end
+
+function SilentServer:RAID_ROSTER_UPDATE()
   self:RosterUpdate()
 end
 
-function  SilentServer:PLAYER_ENTERING_WORLD()
+function SilentServer:PLAYER_ENTERING_WORLD()
   self:RosterUpdate()
 end
 
